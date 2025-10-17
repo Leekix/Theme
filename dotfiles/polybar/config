@@ -1,0 +1,33 @@
+[bar/example]
+width = 100%
+height = 28
+modules-left = bspwm
+modules-center =
+modules-right = cpu memory network date tray pulseaudio
+tray-position = right
+background = #1e1e2e
+foreground = #e6e6ea
+
+[module/bspwm]
+type = internal/bspwm
+
+[module/cpu]
+type = internal/cpu
+format = <label> <bar>
+
+[module/memory]
+type = internal/memory
+format = <used> / <total>
+
+[module/network]
+type = internal/network
+interface = wlp*
+interval = 3
+
+[module/date]
+type = internal/date
+format = %Y-%m-%d %H:%M
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume = <label>

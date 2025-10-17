@@ -1,0 +1,35 @@
+# sxhkd - simple hotkeys
+
+# Variables
+super = Mod4
+alt = Mod1
+
+# Launch terminal
+super + Return
+    kitty || alacritty || xterm
+
+# Rofi app launcher
+super + d
+    rofi -show drun
+
+# Kill focused
+super + Shift + q
+    bspc node -c
+
+# Toggle floating
+super + Shift + space
+    bspc node -t floating
+
+# Move focused to monitor
+super + alt + Left
+    bspc node -d prev.local
+super + alt + Right
+    bspc node -d next.local
+
+# Change desktop
+super + {1-9}
+    bspc desktop -f "^\{1-9\}" || true
+
+# Move window to desktop
+super + Shift + {1-9}
+    bspc node -d "^\{1-9\}" || true

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# BSPWM minimal config inspired by ZLCube/AutoBspwm
+sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+# Basic rules
+bspc config border_width 2
+bspc config gapless_monocle true
+bspc config window_gap 8
+
+# focus follows mouse
+bspc config focus_follows_pointer true
+
+# float dialogs
+bspc rule -a Gimp state=floating
+
+# Autostart
+feh --bg-scale "$HOME/.config/Wallpaper/$(ls "$HOME/.config/Wallpaper" | head -n1 || true)" &
+picom --config "$HOME/.config/picom/picom.conf" &
