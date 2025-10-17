@@ -12,6 +12,25 @@ super + Return
 super + d
     rofi -show drun
 
+# Rofi run
+super + r
+    rofi -show run
+
+# Screenshot
+Print
+    maim ~/Pictures/screenshot_$(date +%Y%m%d_%H%M%S).png && notify-send "Screenshot saved"
+
+# Focus and move
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+super + Shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+# Resize mode (hold)
+super + alt + {h,j,k,l}
+    bspc node -z {left 20 0,right 20 0,down 0 20,up 0 20}
+
 # Kill focused
 super + Shift + q
     bspc node -c

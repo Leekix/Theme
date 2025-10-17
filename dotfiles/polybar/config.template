@@ -1,17 +1,16 @@
 [colors]
-background = #0f1117
-foreground = #d7dae0
-primary = #8bd5ca
-secondary = #c792ea
+background = ${BG:-#2b2f4a}
+foreground = ${FG:-#f0e6ff}
+primary = ${PRIMARY:-#ff8a65}
+accent = ${ACCENT:-#8b6cff}
 
 [bar/top]
 width = 100%
 height = 28
-background = ${colors.background}
-foreground = ${colors.foreground}
+background = ${background}
+foreground = ${foreground}
 tray-position = right
 modules-left = bspwm
-modules-center =
 modules-right = cpu memory battery network date tray pulseaudio
 
 [module/bspwm]
@@ -45,4 +44,3 @@ format = %Y-%m-%d %H:%M
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label>
-

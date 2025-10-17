@@ -30,6 +30,32 @@ for f in "$HOME/.config/bspwm/bspwmrc" "$HOME/.config/sxhkd/sxhkdrc" "$HOME/.con
   fi
 done
 
+echo "Checking polybar scripts"
+for s in "$HOME/.config/polybar/scripts/battery.sh" "$HOME/.config/polybar/scripts/network.sh"; do
+  if [ -x "$s" ] || [ -f "$s" ]; then
+    echo "SCRIPT OK: $s"
+  else
+    echo "MISSING SCRIPT: $s"
+    errs=$((errs+1))
+  fi
+done
+
+echo "Checking fonts (FiraCode / JetBrainsMono)"
+for f in "FiraCode-Regular.ttf" "JetBrainsMono-Regular.ttf"; do
+  if fc-list | grep -i "${f%.*}" >/dev/null 2>&1; then
+    echo "FONT OK: $f"
+  else
+    echo "FONT MISSING: $f"
+    errs=$((errs+1))
+  fi
+done
+
+echo "Checking icon theme (Papirus)"
+if gsettings get org.gnome.desktop.interface icon-theme >/dev/null 2>&1; then
+  itheme=$(gsettings get org.gnome.desktop.interface icon-theme || echo "")
+  echo "Current icon theme: $itheme"
+fi
+
 if [ $errs -eq 0 ]; then
   echo "All checks passed"
   exit 0

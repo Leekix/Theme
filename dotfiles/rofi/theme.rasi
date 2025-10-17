@@ -1,0 +1,17 @@
+/* Rofi theme derived from wallpaper palette */
+* {
+  background:    @bg;
+  foreground:    @fg;
+  selected:      @primary;
+  active:        @accent;
+  border-color:  @primary;
+}
+
+window {
+  background: @bg;
+  border: { 1px @primary; }
+}
+
+listview {
+  lines: 10;
+}

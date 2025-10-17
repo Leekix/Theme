@@ -85,6 +85,10 @@ link_dotfile "$DOTFILES_DIR/rofi/config.rasi" "$HOME/.config/rofi/config.rasi"
 link_dotfile "$DOTFILES_DIR/picom/picom.conf" "$HOME/.config/picom/picom.conf"
 link_dotfile "$DOTFILES_DIR/wallpaper/wallpaper.sh" "$HOME/.config/wallpaper/wallpaper.sh"
 
+# copy polybar helper scripts
+mkdir -p "$HOME/.config/polybar/scripts"
+cp -rn "$DOTFILES_DIR/polybar/scripts/"* "$HOME/.config/polybar/scripts/" || true
+
 for term in "${TERMINAL_CANDIDATES[@]}"; do
   if command -v "$term" >/dev/null 2>&1; then
     echo "Found terminal: $term"
@@ -140,6 +144,22 @@ fi
 
 echo "Linking autostart (bspwmrc)"
 link_dotfile "$DOTFILES_DIR/bspwm/bspwmrc" "$HOME/.config/bspwm/bspwmrc"
+
+# Try to install Papirus icon theme via package manager if available
+case "$PKG_MANAGER" in
+  pacman)
+    sudo pacman -S --noconfirm papirus-icon-theme || true
+    ;;
+  apt)
+    sudo apt install -y papirus-icon-theme || true
+    ;;
+  dnf)
+    sudo dnf install -y papirus-icon-theme || true
+    ;;
+  *)
+    echo "Install Papirus icon theme manually if desired"
+    ;;
+esac
 
 echo "Setup complete. Please start/restart your X session and run: ~/.config/polybar/launch.sh"
 

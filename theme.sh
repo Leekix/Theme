@@ -28,6 +28,15 @@ apply_theme() {
     first=$(ls "$d" | head -n1 || true)
     if [ -n "$first" ]; then
       feh --bg-scale "$d/$first" || true
+      # generate and apply palette based on wallpaper
+      if [ -x "$SCRIPT_DIR/scripts/apply_palette.sh" ] || [ -f "$SCRIPT_DIR/scripts/apply_palette.sh" ]; then
+        "$SCRIPT_DIR/scripts/apply_palette.sh" "$d/$first" || true
+        # source colors for polybar/rofi
+        if [ -f "$HOME/.config/auto_theme_colors.sh" ]; then
+          # shell file with BG,FG,PRIMARY,ACCENT
+          . "$HOME/.config/auto_theme_colors.sh"
+        fi
+      fi
     fi
   fi
 

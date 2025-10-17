@@ -1,20 +1,34 @@
 #!/usr/bin/env bash
 # BSPWM minimal config inspired by ZLCube/AutoBspwm
-sxhkd &
+#!/usr/bin/env bash
+# bspwmrc - improved autostart and rules
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+# start hotkeys
+pgrep -u "$USER" -x sxhkd >/dev/null || sxhkd &
 
-# Basic rules
+# desktops
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+
+# appearance
 bspc config border_width 2
-bspc config gapless_monocle true
 bspc config window_gap 8
-
-# focus follows mouse
 bspc config focus_follows_pointer true
+bspc config pointer_modifier Mod4
 
-# float dialogs
+# rules
 bspc rule -a Gimp state=floating
+bspc rule -a Steam state=floating
 
-# Autostart
-feh --bg-scale "$HOME/.config/Wallpaper/$(ls "$HOME/.config/Wallpaper" | head -n1 || true)" &
-picom --config "$HOME/.config/picom/picom.conf" &
+# restore background and autostart services
+if [ -f "$HOME/.config/bspwm/autostart.sh" ]; then
+	source "$HOME/.config/bspwm/autostart.sh"
+else
+	feh --bg-scale "$HOME/.config/Wallpaper/$(ls "$HOME/.config/Wallpaper" | head -n1 || true)" &
+	picom --config "$HOME/.config/picom/picom.conf" &
+	"$HOME/.config/polybar/launch.sh" &
+fi
+
+# hook to update status (polybar bspwm module)
+bspc subscribe report | while read -r; do
+	sleep 0.01
+done &
